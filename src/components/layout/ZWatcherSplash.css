@@ -1,0 +1,365 @@
+.zwsplash-root {
+  position: fixed;
+  z-index: 99999;
+  inset: 0;
+  background: linear-gradient(135deg, #0f001a 0%, #1a0033 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  pointer-events: all;
+}
+.zwsplash-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.zwsplash-logo {
+  width: 70vw;
+  max-width: 600px;
+  height: 140px;
+  filter: drop-shadow(0 0 32px #ff005a88) drop-shadow(0 0 64px #00ffd088);
+  animation:
+    zwsplash-fadein 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both,
+    zwsplash-glow 2.2s ease-in-out infinite alternate;
+}
+.zwsplash-text {
+  letter-spacing: 0.08em;
+  stroke: #fff;
+  stroke-width: 2px;
+  paint-order: stroke fill;
+  filter: blur(0.5px) drop-shadow(0 0 8px #ff005a88)
+    drop-shadow(0 0 16px #00ffd088);
+  animation: zwsplash-text-reveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zwsplash-text.exploding {
+  filter: blur(2px) brightness(2) drop-shadow(0 0 16px #ff005a)
+    drop-shadow(0 0 32px #00ffd0);
+  animation: text-explode 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.zwsplash-glow {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 60%,
+    #ff005a33 0%,
+    #ffb30022 40%,
+    #00ffd011 80%,
+    transparent 100%
+  );
+  filter: blur(60px) brightness(1.2);
+  z-index: -1;
+  animation: zwsplash-bgfade 2.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+/*
+  Add Netflix-style ident animation:
+  - Morph Z to N
+  - Animate colored light beams
+*/
+.zwsplash-logo.morph-n .zwsplash-text {
+  animation: zwsplash-z-morph 0.5s forwards;
+}
+.zwsplash-text.hide-z {
+  opacity: 0;
+  transition: opacity 0.2s 0.3s;
+}
+.zwsplash-n {
+  opacity: 0;
+  transform: scale(0.8) skewY(-10deg);
+  filter: blur(8px);
+  transition:
+    opacity 0.2s 0.2s,
+    transform 0.5s,
+    filter 0.5s;
+}
+.zwsplash-logo.morph-n .zwsplash-n {
+  opacity: 1;
+  transform: scale(1) skewY(0deg);
+  filter: blur(0.5px);
+  transition:
+    opacity 0.2s 0.2s,
+    transform 0.5s,
+    filter 0.5s;
+}
+.zwsplash-logo.show-beams .zwsplash-n {
+  filter: blur(0.5px) brightness(1.2);
+}
+/* Netflix-style beam animations */
+.zwsplash-beams {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.zwsplash-beams.beams-full {
+  opacity: 1;
+}
+
+/* Z-shaped beams - expanding toward viewer in Z formation */
+.z-top-line {
+  opacity: 0;
+  transform: perspective(1000px) translateZ(-300px) scaleX(0.1) rotateX(45deg);
+  filter: blur(6px);
+  animation: z-top-line-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+
+.z-diagonal {
+  opacity: 0;
+  transform: perspective(1000px) translateZ(-400px) scale(0.1) rotateZ(45deg);
+  filter: blur(8px);
+  animation: z-diagonal-expand 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+
+.z-bottom-line {
+  opacity: 0;
+  transform: perspective(1000px) translateZ(-300px) scaleX(0.1) rotateX(-45deg);
+  filter: blur(6px);
+  animation: z-bottom-line-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+
+/* Z-pattern animation delays - sequential expansion */
+.z-top-line-0 {
+  animation-delay: 0s;
+}
+.z-top-line-1 {
+  animation-delay: 0.05s;
+}
+.z-top-line-2 {
+  animation-delay: 0.1s;
+}
+.z-top-line-3 {
+  animation-delay: 0.15s;
+}
+.z-top-line-4 {
+  animation-delay: 0.2s;
+}
+
+.z-diagonal-0 {
+  animation-delay: 0.3s;
+}
+.z-diagonal-1 {
+  animation-delay: 0.35s;
+}
+.z-diagonal-2 {
+  animation-delay: 0.4s;
+}
+.z-diagonal-3 {
+  animation-delay: 0.45s;
+}
+.z-diagonal-4 {
+  animation-delay: 0.5s;
+}
+.z-diagonal-5 {
+  animation-delay: 0.55s;
+}
+
+.z-bottom-line-0 {
+  animation-delay: 0.6s;
+}
+.z-bottom-line-1 {
+  animation-delay: 0.65s;
+}
+.z-bottom-line-2 {
+  animation-delay: 0.7s;
+}
+.z-bottom-line-3 {
+  animation-delay: 0.75s;
+}
+.z-bottom-line-4 {
+  animation-delay: 0.8s;
+}
+
+/* Z-pattern positioning - creating the letter Z shape */
+.z-top-line-pos-0 {
+  transform: translateX(-120px) translateY(-40px);
+}
+.z-top-line-pos-1 {
+  transform: translateX(-60px) translateY(-40px);
+}
+.z-top-line-pos-2 {
+  transform: translateX(0px) translateY(-40px);
+}
+.z-top-line-pos-3 {
+  transform: translateX(60px) translateY(-40px);
+}
+.z-top-line-pos-4 {
+  transform: translateX(120px) translateY(-40px);
+}
+
+.z-diagonal-pos-0 {
+  transform: translateX(-80px) translateY(-20px) rotate(45deg);
+}
+.z-diagonal-pos-1 {
+  transform: translateX(-40px) translateY(-10px) rotate(45deg);
+}
+.z-diagonal-pos-2 {
+  transform: translateX(0px) translateY(0px) rotate(45deg);
+}
+.z-diagonal-pos-3 {
+  transform: translateX(40px) translateY(10px) rotate(45deg);
+}
+.z-diagonal-pos-4 {
+  transform: translateX(80px) translateY(20px) rotate(45deg);
+}
+.z-diagonal-pos-5 {
+  transform: translateX(120px) translateY(30px) rotate(45deg);
+}
+
+.z-bottom-line-pos-0 {
+  transform: translateX(-120px) translateY(40px);
+}
+.z-bottom-line-pos-1 {
+  transform: translateX(-60px) translateY(40px);
+}
+.z-bottom-line-pos-2 {
+  transform: translateX(0px) translateY(40px);
+}
+.z-bottom-line-pos-3 {
+  transform: translateX(60px) translateY(40px);
+}
+.z-bottom-line-pos-4 {
+  transform: translateX(120px) translateY(40px);
+}
+@keyframes zwsplash-fadein {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes zwsplash-text-reveal {
+  from {
+    opacity: 0;
+    letter-spacing: 0.3em;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.08em;
+    filter: blur(0.5px);
+  }
+}
+@keyframes zwsplash-glow {
+  from {
+    filter: drop-shadow(0 0 32px #ff005a88) drop-shadow(0 0 64px #00ffd088);
+  }
+  to {
+    filter: drop-shadow(0 0 64px #ff005a) drop-shadow(0 0 128px #00ffd0);
+  }
+}
+@keyframes zwsplash-bgfade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes text-explode {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0.5px) brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+    filter: blur(1px) brightness(3);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1.2);
+    filter: blur(4px) brightness(0.5);
+  }
+}
+@keyframes z-expand-toward-viewer {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-500px) scale(0.1);
+    filter: blur(8px) brightness(0.3);
+  }
+  25% {
+    opacity: 0.6;
+    transform: perspective(1000px) translateZ(-250px) scale(0.4);
+    filter: blur(4px) brightness(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: perspective(1000px) translateZ(-100px) scale(0.7);
+    filter: blur(2px) brightness(1.2);
+  }
+  75% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(-20px) scale(0.9);
+    filter: blur(1px) brightness(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(0px) scale(1);
+    filter: blur(0px) brightness(2);
+  }
+}
+
+@keyframes z-top-line-expand {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-300px) scaleX(0.1) rotateX(45deg);
+    filter: blur(6px) brightness(0.5);
+  }
+  50% {
+    opacity: 0.8;
+    transform: perspective(1000px) translateZ(-50px) scaleX(0.6) rotateX(15deg);
+    filter: blur(2px) brightness(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(20px) scaleX(1) rotateX(0deg);
+    filter: blur(0px) brightness(1.8);
+  }
+}
+
+@keyframes z-diagonal-expand {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-400px) scale(0.1) rotateZ(45deg);
+    filter: blur(8px) brightness(0.3);
+  }
+  40% {
+    opacity: 0.7;
+    transform: perspective(1000px) translateZ(-100px) scale(0.5) rotateZ(20deg);
+    filter: blur(4px) brightness(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(30px) scale(1) rotateZ(0deg);
+    filter: blur(0px) brightness(2);
+  }
+}
+
+@keyframes z-bottom-line-expand {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) translateZ(-300px) scaleX(0.1)
+      rotateX(-45deg);
+    filter: blur(6px) brightness(0.5);
+  }
+  50% {
+    opacity: 0.8;
+    transform: perspective(1000px) translateZ(-50px) scaleX(0.6) rotateX(-15deg);
+    filter: blur(2px) brightness(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) translateZ(20px) scaleX(1) rotateX(0deg);
+    filter: blur(0px) brightness(1.8);
+  }
+}
